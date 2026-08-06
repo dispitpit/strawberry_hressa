@@ -1,0 +1,4 @@
+D0620_S19_mean_spectrum.npy
+D0625_S19_mean_spectrum.npy
+D0702_S12_mean_spectrum.npy
+D0710_S4_mean_spectrum.npy

@@ -1,0 +1,62 @@
+*** main ***
+    (1) 單一數據測試
+        cd: /single_data_test
+        RUN: test.py
+        INPUT: .raw + .hdr +　mask
+        OUTPUT: .npy (實驗用) + .csv (查看數據內容用)
+
+    (2) 製作所有HSI之對應.npy和.csv
+        RUN: get_average_pixel_value.py
+        OUTPUT: ALL .npy + .csv
+
+    (3) 區分感染與未感染
+        RUN: divided_healthy_unhealthy.py
+
+    (4) 區分高濃度與低濃度
+        RUN: divided_low_high_vis.py
+
+    (5) 製作波段index對應檔案
+        RUN: save_wavelengths.py
+        OUTPUT: wavelengths.npy
+
+    (6) 單一盆栽反射率分析 (以S6為範例)
+        cd: /single_potted_plant_reflectance
+        RUN: S6_mean_picture.py
+        INPUT: 單一盆摘所有.npy檔
+        OUTPUT: 反射率圖
+
+    (7) 計算植生指數
+        cd: /vis_count
+        RUN: vissss.py
+        OUTPUT1: vi_40_output_v2.csv (全濃度)
+        OUTPUT2: band_matching_error.csv (使用波段誤差)
+
+    (8) 區分不同濃度下的vis結果
+        cd: /vis_count/KS_v2
+        RUN: divided_low_high_vis_v2.py
+        OUTPUT_1: vi_40_low_v2.csv (低濃度)
+        OUTPUT_2: vi_40_high_v2.csv (高濃度)
+
+    (9) 做ReliefF
+        cd: /vis_count
+        RUN_1: RF.py (察看結果)
+        RUN_2: K_sensitivity.py (查看在不同參數下的結果)
+        RUN_3: K_mean.py (最終選擇參數之平均與結果)
+        OUTPUT: 記錄前70%影響力的VIs
+
+    (10) 做KS
+        cd: /vis_count/KS_v2
+        RUN: KS_high_v2.py
+        RUN: KS_low_v2.py
+        RUN: KS_npy_v2.py
+        OUTPUT: /ks_high_divided_result
+        OUTPUT: /ks_low_divided_result
+        OUTPUT: /ks_npy_divided_result (分析結果 + 各個濃度的訓練集測試集區分)
+
+*** other ***
+/植生指數整理xlsx: VIs公式和來源
+/資料整理結果xlsx: 所有資料問題和高低濃度資料使用
+/wavelengths.npy: 波段對應index，大部分程式碼會使用
+/vis_count/ReliefF_source_code: 原始碼
+
+

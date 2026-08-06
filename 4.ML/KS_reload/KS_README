@@ -1,0 +1,30 @@
+Kennard-Stone: 取樣法
+概念: 使用歐式距離公式找出最遠的兩個點(點是sample)，
+     之後每次挑選"離已經選擇集合最近距離"最大的的那個sample，
+     循環挑選直到達到設定的筆數
+     (計算距離的base是VIs選定特徵)
+目的: 讓已選集合在特徵空間中盡量涵蓋滿
+-
+實作結果: 三份資料集分別為高濃度(high)、低濃度(low)、所有資料(npy)
+實作設定；設定test : train為1:3，
+        test做為獨立驗證集，訓練過程中不使用
+        避免感染與未感染不平均，流程如下
+        1.選定製作目標資料集
+        2.ks(healthy) -> 3:1
+        3.ks(unhealthy) -> 3:1
+        4.最終資料集: 將2、3相加
+        使得感染與未感染在驗證訓練集中平均
+        (每組結果皆放在ks_{con}_divided_result資料夾中)
+
+程式設定:
+a. 最一開始挑兩個距離最遠的sample(i, j)，兩者皆加入集合
+b. 在train set挑滿75%，剩下的當作test set (確保全局訓練)
+c. 對距離非常敏感，vis特徵數值區間不定(MTCI->[0,2]、CHL2->[7,25])，因此對每個VIS各自做正規化
+d. 對於VIs特徵使用的選擇，為ReliefF結果影響力高於80%的8組VI
+
+結果內容:
+/ks_{con}_divided_result
+    -ks_split_meta_{con}: 存放選定VIs和資料總數
+    -ks_split_summary_{con}: 區分的train；test筆數
+    -ks_split_test_{con}: test集合
+    -ks_split_train_{con}: train集合

@@ -1,0 +1,64 @@
+*** main ***
+
+    (1) 取得 HSI "圖像"
+        RUN: Load_all_HIS.py
+        INPUT: .hdr+.raw
+        OUTPUT: (.png * 300 (gray)) * INPUT檔案數量
+
+    (2) 取得pseudo HSI
+        RUN: load_RGB.py
+        INPUT: .hdr + .raw
+        OUTPUT: (.png * 1 (RGB)) * INPUT檔案數量
+
+    (3) 使用U2-NET模型取得mask
+        cd: /U-2-Net-master
+        RUN: U2NET_test.py
+        MODEL SAVE IN: /save_models/u2net.pth (u2net.pth為已訓練好的模型)
+        INPUT: /test_data/test_images
+        OUTPUT: /test_data/u2net_results
+
+    (4) 將 mask 後處理與檢查
+        -> 確保mask為binary(0/255)
+           RUN: binary_mask.py
+        -> 細節微調
+           RUN: cleaned.py
+        -> 結果與pseudo HSI重疊 (檢查結果)
+           RUN: test_mask_overlay_result.py
+
+    (5) 將mask遮罩回HSI所有影像
+        RUN: all_image_mask
+        INPUT_1: .png * 300 (gray)
+        INPUT_2: mask * 1
+        OUTPUT: .png * 300 (gray_mask)
+
+    (6) 效能評估
+        cd: /evaluate
+        RUN: mIOU.py
+        INPUT: test_mask and train_mask
+        OUTPUT: mIOU result
+
+
+*** other ***
+    /偽RGB圖況紀錄.xlsx: RGB圖檔狀況
+    /evaluate/change_file_name.py: 檔名更換
+    /evaluate/use_corresponding_files.py: 複製u2-net結果
+
+
+*** file name information ***
+    folder contents:
+        - 基本資料
+            all: 所有RGB圖資料
+            D0611: 分天的RGB圖資料(目前混入了train_leaf檔案)
+        - 處理過資料
+            train_leaf: 使用adobe express進行去背的結果約50張，作為u2net的訓練集
+            train_leaf_binary: 將train_leaf mask後的結果
+            train_leaf_picture: train_leaf對應的原RGB圖
+        - u2net處理過後的檔案
+            u2net_results: 各個經過不同model訓練出來的結果
+            u2net_results_mask: mask後的u2net_results
+            u2net_result_mask_feathered: 經過調整的u2net_reuslts_mask_feathered
+            overlay_results: check u2net_result_mask_feathered和all的重疊結果(紅調)
+        - .py檔
+            binary_mask: mask轉換檔，改input/output就可以用
+            feathering: 對mask的後續微調處理
+            test_mask_overlay_result: check mask和原圖的重疊結果

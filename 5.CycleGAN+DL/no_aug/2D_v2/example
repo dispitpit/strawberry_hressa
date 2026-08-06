@@ -1,0 +1,13 @@
+results/
+  high_patch128_20251121_2105/
+    logs/
+      train_log.txt                 # console 全部輸出
+    ckpt/
+      best_model.pth
+    figures/
+      training_curve.png
+      confusion_matrix_image.png    # image-level cm
+    info/
+      config_snapshot.txt           # 重要超參數摘要
+      selected_bands.npy
+      metrics_image_level.txt       # 最終 SN/SP/ACC/MCC/AUC

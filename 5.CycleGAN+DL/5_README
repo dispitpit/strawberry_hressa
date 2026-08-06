@@ -1,0 +1,40 @@
+*** main ***
+
+    (1) 資料切分(KS)
+        RUN: /ks/generate_ks_lists.py
+
+    (2) 將高光譜堆疊成.npy
+        RUN: pack_wavelength_png_to_npy.py
+
+    (3) 選出主要植株區域
+        RUN: 2D_crop/preprocess_crop_plant.py
+
+    (4) 訓練cycleGAN並取得對應濃度假資料
+        cd: \CycleGAN
+        解壓cycleGAN.zip 到當前目錄即可訓練與驗證
+        (原始未改檔案: \pytorch-CycleGAN-and-pix2pix-master.zip)
+
+    (5) 使用訓練好的cycleGAN生出假資料並堆疊成32波段.npy
+        RUN: all_training_data.py
+
+    (6) 平均反射率比對
+        RUN: true_vs_fake_v2.py
+
+    (7) 尚未加入假資料的2d-cnn和3d-cnn模型
+        RUN1: no_aug/2D_v2/train_2d.py
+        RUN2: no_aug/3D/train_3d.py
+
+    (8) 加入cycleGAN和未加入cycleGAN進行比較(結合7)
+        RUN1: all_aug_and_no_aug/CNN_2D/train_2d.py
+        RUN2: all_aug_and_no_aug/CNN_3D/train_3d.py
+
+CNN 架構舉例:
+2d/
+│
+├─ config_2d.py        # 設定檔:路徑、超參數、選到的波段等
+├─ dataset_2d.py       # 資料檔:讀 .npy / 影像 + label，回傳 (C,H,W)
+├─ model_2d.py         # 模型檔:2D CNN / UNet 模型
+└─ train_2d.py         # 主程式：dataloader、訓練、(可選) 交叉驗證
+
+
+dataset_hsi_2d_patch.py: 做pathch取代的資料檔

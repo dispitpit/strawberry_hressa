@@ -1,0 +1,24 @@
+*** main ***
+
+    (1). 轉移資料
+        RUN: create_all_train_dataset.py
+
+    (2) 檢查常態分佈
+        RUN: Normal_check_RT.py
+
+    (3) 找出離群值
+        RUN: Find_outlier_samples.py
+        OUTPUT: outlier_samples.csv
+        (離群值去除轉移到remove_outliers裡)
+
+    (4) 分析重要波段
+        cd: /feature_selection
+        RUN1: CARS.py
+        RUN2: LDA.py
+        RUN3: PCA.pY
+        RUN4: RF.py
+        RUN5: SPA.py
+
+*** others ***
+/normal_conditions: 每個波段的常態狀況(去除離群值之前)
+/one_method_fs_ml_result: 單一波段篩選在機器學習下的結果

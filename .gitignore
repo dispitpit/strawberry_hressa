@@ -1,0 +1,25 @@
+0.example_data/(1D_example)_D0618_S6_mean_spectrum.npy
+0.example_data/(2D_crop_example)_D0703_S1.npy
+0.example_data/(2D_example)_D0618_S6.npy
+0.example_data/D0611_S2_overlay.png
+0.example_data/D0611_S3_mean_spectrum.csv
+0.example_data/D0612_S1.png
+0.example_data/D0613_S9_B241_W882.71.png
+0.example_data/D0618_S1_mask.png
+0.example_data/D0618_S14_mean_spectrum.npy
+0.example_data/D0619_S1_B254_W908.80_masked.png
+
+1.segmentation/偽RBG圖狀況記錄.xlsx
+2.analysis/single_potted_plant_reflectance/mean_spectrum_plot_forS6.png
+2.analysis/vis_count/top20_reliefF_consensus_pct_v11.png
+2.analysis/植生指數整理.xlsx
+2.analysis/資料集整理結果.xlsx
+
+
+1.segmentation/U-2-Net-master/
+3.feature selection/normal_conditions/
+5.CycleGAN+DL/CycleGAN/
+6.other/calibration/
+6.other/color/
+6.other/divided_plant_reflectance/
+.idea/

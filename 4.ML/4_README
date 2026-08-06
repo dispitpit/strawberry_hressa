@@ -1,0 +1,29 @@
+*** main ***
+
+    (1) Machine Learning
+        分成三種輸入: ivs_base、npy_base、npy_base + bands selection
+        (a) vis base
+            cd: /vis_count/VIs_base_v2
+            RUN: vis_base_high_v2.py
+            RUN: vis_base_low_v2.py
+            RUN: vis_base_npy_v2.py
+            OUTPUT: /reuslt (所有濃度+所有機器學習模型結果)
+
+        (b) npy base all bands
+            cd: /vis_count/KS_v2
+            RUN: ML_v2.py  (RUN三次改config)
+            OUTPUT: /ML_reuslt
+
+        (c) npy base selection bands
+            cd: /vis_count/KS_v2
+            RUN: ML_v3_feature_selection.py
+            OUTPUT: /ML_reuslt/4_feature_selection
+
+
+*** other ***
+/KS_reload: 單一種input執行檔和預測檔
+
+共用詞:
+* npy == all
+* healthy == noninfected
+* unhealthy == infected
