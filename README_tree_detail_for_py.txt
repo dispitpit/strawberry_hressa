@@ -1,31 +1,31 @@
-├─ 1.segmentation：植株影像分割與遮罩建立
+├─ 1.segmentation：影像分割與遮罩建立
 │  │
-│  ├─ Load_all_HIS.py：讀取 .hdr 與 .raw 高光譜資料，將每個樣本輸出為 300 張單波段灰階 PNG
-│  ├─ load_RGB.py：由高光譜資料建立虛擬 RGB 圖，供 U²-Net 分割與結果檢查使用
+│  ├─ Load_all_HIS.py：讀取 .hdr 與 .raw 高光譜資料，將每個樣本輸出為 300 張單波段 PNG
+│  ├─ load_RGB.py：由高光譜資料建立虛擬 RGB 圖，供 U²-Net 分割訓練與檢查使用
 │  ├─ binary_mask.py：將 U²-Net 輸出的灰階遮罩轉換為 0／255 二值遮罩
-│  ├─ cleaned.py：對二值遮罩進行細節修正與後處理
+│  ├─ cleaned.py：對二值遮罩進行細節修正
 │  ├─ test_mask_overlay_result.py：將遮罩疊加至虛擬 RGB 圖，視覺化檢查分割結果
 │  ├─ all_image_mask.py：將單一植株遮罩套用至同一樣本的全部 300 個波段影像
 │  │
 │  ├─ U-2-Net-master
 │  │  ├─ u2net_test.py：載入訓練完成的 U²-Net，對虛擬 RGB 圖產生植株遮罩
 │  │  ├─ u2net_train.py：訓練 U²-Net 植株分割模型
-│  │  ├─ data_loader.py：讀取 U²-Net 訓練或測試所需的影像與遮罩
+│  │  ├─ data_loader.py：讀取 U²-Net 訓練所需的影像與遮罩
 │  │  ├─ model
 │  │  │  └─ u2net.py：U²-Net 模型架構定義
 │  │  ├─ saved_models
 │  │  │  └─ u2net
 │  │  │     └─ u2net.pth：訓練完成的植株分割模型權重
 │  │  └─ test_data
-│  │     ├─ test_images：存放待分割的虛擬 RGB 圖
-│  │     └─ u2net_results：存放 U²-Net 輸出的植株遮罩
+│  │     ├─ test_images：存放待分割的虛擬 RGB 圖 (模型用input)
+│  │     └─ u2net_results：存放 U²-Net 輸出的植株遮罩 (模型用output)
 │  │
 │  └─ evaluate
 │     ├─ mIOU.py：比較預測遮罩與人工標註遮罩，計算 IoU／mIoU 分割效能
 │     ├─ change_file_name.py：調整檔名，使預測遮罩可與真實遮罩正確配對
 │     └─ use_ corresponding_file.py：依檔名複製或篩選與真實標註相對應的 U²-Net 結果
 │
-├─ 2.analysis：高光譜反射率、植生指數與資料切分分析
+├─ 2.analysis：高光譜反射率、vis與KS分析
 │  │
 │  ├─ single_data_test
 │  │  └─ test.py：以單一 .hdr、.raw 與遮罩測試反射率擷取流程，輸出平均光譜 .npy 與 .csv
@@ -38,7 +38,7 @@
 │  ├─ wavelengths.npy：儲存 300 個波段對應的實際波長，供植生指數、特徵選擇與模型程式使用
 │  │
 │  ├─ single_potted_plant_reflectance
-│  │  └─ S6_mean_picture.py：彙整單一盆栽不同日期的平均反射率，繪製時序光譜曲線
+│  │  └─ S6_mean_picture.py：彙整單一盆栽不同日期的平均反射率，時序光譜曲線 (S6為例)
 │  │
 │  └─ vis_count
 │     ├─ vissss.py：根據平均反射率計算植生指數，輸出植生指數表與波段匹配誤差
@@ -88,7 +88,7 @@
 │     ├─ predict_one.py：載入已儲存模型，對單一樣本進行健康／感染預測
 │     └─ model.joblib：儲存訓練完成的機器學習模型
 │
-├─ 5.CycleGAN+DL：生成式資料增強與 2D／3D 深度學習分類
+├─ 5.CycleGAN+DL：生成式資料增強與 2D／3D 深度學習
 │  │
 │  ├─ ks
 │  │  └─ generate_ks_lists.py：依植生指數特徵對健康與感染樣本分別執行 KS 切分，建立 train、val、test 路徑清單
