@@ -1,0 +1,24 @@
+列出磁碟區 Ultra Touch 的資料夾 PATH
+磁碟區序號為 000001C6 FA6E:551F
+E:\STRAWBERRY2026\5.CYCLEGAN+DL\CYCLEGAN
+|   cycleGAN.zip
+|   pytorch-CycleGAN-and-pix2pix-master.zip
+|   
++---checkpoints
++---datasets
+|       combine_A_and_B.py
+|       make_dataset_aligned.py
+|       prepare_cityscapes_dataset.py
+|       
++---final_result
+|       all_taining_data_v1.py
+|       all_training_data_v3.py
+|       one_sample_check.py
+|       true_vs_fake_v1.py
+|       true_vs_fake_v7_more_loss.py
+|       
+\---test_models
+        check_file.py
+        infer_full_hsi_tiles.py
+        real_vs_fake_line.py
+        
